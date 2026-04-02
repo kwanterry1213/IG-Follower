@@ -116,13 +116,13 @@ def _append_scan(csv_path: Path, *, staff_id: str, device_id: str) -> None:
 
 
 def _redirect_via_meta_refresh(url: str) -> None:
-    # Instagram blocks iframe embedding (X-Frame-Options: deny). We use a normal navigation
-    # via meta-refresh, and also show a clickable fallback in case the browser blocks it.
-    st.markdown(f'<meta http-equiv="refresh" content="0;url={url}">', unsafe_allow_html=True)
+    # Instagram blocks iframe embedding (X-Frame-Options: deny). In some deployed/embedded
+    # contexts the redirect may be attempted from a frame and will be refused.
+    # To keep the flow reliable, we show an explicit "open" action (new tab).
     try:
-        st.link_button("前往 Instagram", url)
+        st.link_button("前往 Instagram（新分頁）", url)
     except Exception:
-        st.markdown(f"[前往 Instagram]({url})")
+        st.markdown(f'<a href="{url}" target="_blank" rel="noopener">前往 Instagram（新分頁）</a>', unsafe_allow_html=True)
     st.stop()
 
 
