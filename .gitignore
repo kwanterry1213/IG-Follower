@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.streamlit/
+
+# Local data / logs
+scan_log.csv
+staff_directory.csv
+
